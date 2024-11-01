@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import io.Snake.main.Main;
+import io.Snake.model.Model;
 
 // Esta clase es una plantilla para las pantallas del juego
 public abstract class TemplateScreen implements Screen{
@@ -15,10 +16,13 @@ public abstract class TemplateScreen implements Screen{
     protected Main game;
     protected SpriteBatch batch;
     protected OrthographicCamera camera;
+    protected Model gameModel;
 
     public TemplateScreen(Main game) {
         // Se recibe el archivo Main para hacer los cambios de pantalla (También puede instanciarse en un Objeto Game en lugar de Main)
         this.game = game;
+        // Se obtiene el modelo del juego
+        gameModel = game.getModel();
         // Se crea una camara para poder ajustarse a cambios en el tamaño de la pantalla
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

@@ -2,6 +2,7 @@ package io.Snake.main;
 
 import com.badlogic.gdx.Game;
 
+import io.Snake.model.Model;
 import io.Snake.screens.MenuScreen;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -11,12 +12,18 @@ public class Main extends Game {
     // Desventaja de guardarlos aquí es que se deben crear muchos getters y setters, o bien al menos uno
     // de alguna clase que guarde los datos como el "Modelo" de su proyecto anterior
 
+    private Model model;
 
     @Override
     public void create() {
+        model = new Model();
         // Si se requiere cambiar el tamaño de la ventana al iniciar el juego,
         // Se puede hacer desde el archivo Lwjgl3Launcher.java
         setScreen(new MenuScreen(this));
+    }
+
+    public Model getModel() {
+        return model;
     }
 
 }
