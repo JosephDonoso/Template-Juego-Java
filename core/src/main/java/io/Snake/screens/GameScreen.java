@@ -37,16 +37,16 @@ public class GameScreen extends TemplateScreen {
         gameModel.addScore();
 
         // TAMBIÉN ES POSIBLE AGREGAR UNA CLASE CONTROLADOR PARA MANEJAR LOS CAMBIOS DE DIRECCIONES
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && !gameModel.getDirection().equals("DOWN")) {
             gameModel.setDirection("UP");
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN) && !gameModel.getDirection().equals("UP")) {
             gameModel.setDirection("DOWN");
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT) && !gameModel.getDirection().equals("RIGHT")) {
             gameModel.setDirection("LEFT");
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) && !gameModel.getDirection().equals("LEFT")) {
             gameModel.setDirection("RIGHT");
         }
 

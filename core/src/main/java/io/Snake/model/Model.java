@@ -2,6 +2,12 @@ package io.Snake.model;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ArrayMap;
+import com.badlogic.gdx.utils.Array;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class Model {
      
@@ -89,5 +95,56 @@ public class Model {
 
     public String getDirection() {
         return direction;
+    }
+
+    /* IMPORTANTE Las siguientes funciones sobre Bases de Datos requieren una configuración adicional:
+    *  Debe asegurarase de que el archivo build.gradle tenga la dependencia de MySQL
+    *  dentro de configure(subprojects). 
+    *  La dependencia para JSON es útil en caso de recibir datos desde una API.
+    *  Además debe asegurarse de subir la BD de la carpeta assets a su gestor de Bases de Datos local, con el mismo nombre.
+    *  Yo usé XAMPP para MySQL, pero en teoría puede usar cualquier otro gestor de BD.
+    */ 
+
+    // Nueva función para subir el puntaje a la base de datos
+    public void uploadScoreToDatabase() {
+        String url = "jdbc:mysql://localhost:3306/Snake_DB";
+        String user = "root";
+        String password = "";
+
+        try (
+            Connection connection = DriverManager.getConnection(url, user, password);
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO score (cant, date) VALUES (?, NOW())")
+        ) {
+            statement.setInt(1, score);
+            statement.executeUpdate();
+            System.out.println("Score subido a la base de datos: " + score);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Nueva función para cargar los 10 puntajes más altos desde la base de datos
+    public Array<String> loadHighScores() {
+        Array<String> highScores = new Array<>();
+        String url = "jdbc:mysql://localhost:3306/Snake_DB";
+        String user = "root";
+        String password = "";
+
+        try (
+            Connection connection = DriverManager.getConnection(url, user, password);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT cant, date FROM score ORDER BY cant DESC LIMIT 10")
+        ) {
+
+            while (resultSet.next()) {
+                int cant = resultSet.getInt("cant");
+                String date = resultSet.getString("date");
+                highScores.add("Score: " + cant + " Fecha: " + date);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return highScores;
     }
 }

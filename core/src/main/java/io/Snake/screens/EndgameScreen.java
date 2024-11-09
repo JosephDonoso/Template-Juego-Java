@@ -35,6 +35,8 @@ public class EndgameScreen extends TemplateScreen{
 
         // Acción cuando se presiona la pantalla = Vuelve a comenzar del menu principal
         if (Gdx.input.isTouched()) {
+            // Subir el puntaje a la base de datos
+            game.getModel().uploadScoreToDatabase();
             dispose();
             game.setScreen(new MenuScreen(game));
         }

@@ -31,6 +31,16 @@ configure(subprojects) {
   apply plugin: 'java-library'
   sourceCompatibility = 11
 
+  dependencies {
+    // Conector JDBC para MySQL
+    implementation 'mysql:mysql-connector-java:8.0.26'
+
+    // Bibliotecas Jackson para JSON
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.14.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.14.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.0'
+  }
+
   // From https://lyze.dev/2021/04/29/libGDX-Internal-Assets-List/
   // The article can be helpful when using assets.txt in your project.
   tasks.register('generateAssetList') {

@@ -5,6 +5,7 @@ import io.Snake.main.Main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Input;
 
 // Revisar primero los comentarios en TemplateScreen.java
 public class MenuScreen extends TemplateScreen {
@@ -39,6 +40,7 @@ public class MenuScreen extends TemplateScreen {
         // Con Gdx.graphics se obtienen las medidas de la pantalla
         font.draw(batch, "Menu Principal", Gdx.graphics.getWidth()/2 - 300, Gdx.graphics.getHeight() - 100);
         font.draw(batch, "Jugar (Presione la palabra)", Gdx.graphics.getWidth()/2 - 300, Gdx.graphics.getHeight() - 150);
+        font.draw(batch, "Highscore (Presione E)", Gdx.graphics.getWidth()/2 - 300, Gdx.graphics.getHeight() - 200);
         batch.end();
 
         // Acción cuando se presiona la pantalla
@@ -52,6 +54,12 @@ public class MenuScreen extends TemplateScreen {
 		    game.setScreen(new GameScreen(game));
 			dispose();
 		}
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+            System.out.println("Highscore");
+            game.setScreen(new HighscoreScreen(game));
+            dispose();
+        }
     }
 
     @Override
