@@ -13,13 +13,13 @@ public class BodySnake {
     public BodySnake() {
         x = 0;
         y = 0;
-        texture = new Texture("green.png");
+        texture = new Texture("snakeSkin.png");
     }
 
     public BodySnake( int x, int y) {
         this.x = x;
         this.y = y;
-        texture = new Texture("green.png");
+        texture = new Texture("snakeSkin.png");
     }
 
     public void render(SpriteBatch batch) {

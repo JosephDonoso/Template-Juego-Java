@@ -1,5 +1,6 @@
 package io.Snake.screens;
 
+import io.Snake.Singleton.GameScreen;
 import io.Snake.main.Main;
 
 import com.badlogic.gdx.Gdx;
@@ -51,7 +52,8 @@ public class MenuScreen extends TemplateScreen {
         // Acción cuando se presiona la pantalla en una posición exacta
         if(Gdx.input.isTouched() && (Gdx.input.getX() >= Gdx.graphics.getWidth()/2 - 300 && Gdx.input.getX() <= Gdx.graphics.getWidth()/2 - 30) && (Gdx.input.getY() >= 140 && Gdx.input.getY() <= 180)) {
             System.out.println("Jugar");
-		    game.setScreen(new GameScreen(game));
+            GameScreen.resetInstance(game);
+		    game.setScreen(GameScreen.getInstance(game));
 			dispose();
 		}
 

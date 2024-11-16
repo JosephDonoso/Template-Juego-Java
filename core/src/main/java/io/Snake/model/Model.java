@@ -2,6 +2,12 @@ package io.Snake.model;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ArrayMap;
+
+import io.Snake.FactoryMethod.AppleCreator;
+import io.Snake.FactoryMethod.Fruit;
+import io.Snake.FactoryMethod.FruitCreator;
+import io.Snake.FactoryMethod.LemonCreator;
+
 import com.badlogic.gdx.utils.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +20,8 @@ public class Model {
     private int time;
     private int score;
     private Snake snake;
-    private Apple apple;
+    private Fruit fruit;
+    private FruitCreator fruitCreator;
     private String direction;
     private ArrayMap<String, int[]> directionsMap;
     private boolean isGameOver;
@@ -29,7 +36,8 @@ public class Model {
 
     public void initNewGame() {
         snake = new Snake();
-        apple = new Apple();
+        fruitCreator = new AppleCreator();
+        fruit = fruitCreator.createFruit();
         isGameOver = false;
         score = 0;
         time = 0;
@@ -41,7 +49,13 @@ public class Model {
     }
 
     public void changeApplePosition(int maxWidth, int maxHeight) {
-        apple.changePosition(maxWidth, maxHeight);
+        if (Math.random() < 0.5) {
+            fruitCreator = new AppleCreator();
+        } else {
+            fruitCreator = new LemonCreator();
+        }
+        fruit = fruitCreator.createFruit();
+        fruit.changePosition(maxWidth, maxHeight);
     }
 
     public void addBody() {
@@ -52,8 +66,12 @@ public class Model {
         return snake.checkCollision();
     }
 
-    public boolean checkCollisionWithApple() {
-        return snake.checkCollisionWithApple(apple);
+    public boolean checkCollisionWithFruit() {
+        if (snake.checkCollisionWithFruit(fruit)){
+            score += fruit.getBonus();
+            return true;
+        }
+        return false;
     }
 
     public boolean checkCollisionWithBorder(int maxWidth, int maxHeight) {
@@ -77,7 +95,7 @@ public class Model {
     }
 
     public void render(SpriteBatch batch) {
-        apple.render(batch);
+        fruit.render(batch);
         snake.render(batch);
     }
 

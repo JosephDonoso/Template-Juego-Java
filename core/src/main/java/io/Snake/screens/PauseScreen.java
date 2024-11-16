@@ -5,12 +5,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Input;
+import io.Snake.Singleton.GameScreen;
 
 
 public class PauseScreen extends TemplateScreen {
 
     private BitmapFont font;
     GameScreen gameScreen;
+
+    public PauseScreen(Main game) {
+        super(game); 
+        font = new BitmapFont();
+        font.getData().setScale(2f);
+        batch = new SpriteBatch();
+    }
 
     public PauseScreen(Main game, GameScreen gameScreen) {
         super(game);
@@ -37,7 +45,7 @@ public class PauseScreen extends TemplateScreen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             // Lógica para reanudar el juego
             // NO SE CREA UN NEW GAMESCREEN, SE LE ENTREGA EL MISMO PARA MANTENER EL ESTADO ANTERIOR DEL JUEGO
-            game.setScreen(gameScreen);
+            game.setScreen(GameScreen.getInstance(game));
             dispose();
         }
     }

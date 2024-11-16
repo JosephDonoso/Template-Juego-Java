@@ -3,6 +3,8 @@ package io.Snake.model;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 
+import io.Snake.FactoryMethod.Fruit;
+
 public class Snake {
     Array<BodySnake> body;
 
@@ -11,8 +13,8 @@ public class Snake {
         body.add(new BodySnake());
     }
 
-    public boolean checkCollisionWithApple(Apple apple) {
-        if (body.get(0).getX() == apple.getX() && body.get(0).getY() == apple.getY()) {
+    public boolean checkCollisionWithFruit(Fruit fruit) {
+        if (body.get(0).getX() == fruit.getX() && body.get(0).getY() == fruit.getY()) {
             return true;
         }
         return false;
